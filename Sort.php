@@ -57,6 +57,7 @@ class Sort {
 
   }
 
+  // Used with Merge Sort
   public static function merge($left, $right){
     $result = array();
     while (count($left) > 0 || count($right) > 0){
@@ -104,6 +105,24 @@ class Sort {
     $right = Sort::mergeSort($right);
     
     return Sort::merge($left, $right);
+  }
+
+  /**
+   *  Insertion Sort
+   *  http://en.wikipedia.org/wiki/Insertion_sort
+   *  http://www.youtube.com/watch?v=ROalU379l3U
+   */
+  public static function insertionSort($collection){
+    foreach ($collection as $k => $v){
+      $temp = ($k < count($collection) - 1 ? $collection[$k + 1] : $collection[$k]);
+      $j = ($k < count($collection) - 1 ? $k : $k - 1);
+      while(isset($collection[$j]) && $collection[$j] > $temp){
+        $collection[$j + 1] = $collection[$j];
+        $j--;
+      }
+      $collection[$j + 1] = $temp; 
+    }
+    return $collection;
   }
 
 }
