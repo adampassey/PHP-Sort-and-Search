@@ -57,4 +57,53 @@ class Sort {
 
   }
 
+  public static function merge($left, $right){
+    $result = array();
+    while (count($left) > 0 || count($right) > 0){
+      if (count($left) > 0 && count($right) > 0){
+        if ($left[0] <= $right[0]){
+          array_push($result, $left[0]);
+          $left = array_slice($left, 1);
+        }
+        else{
+          array_push($result, $right[0]);
+          $right = array_slice($right, 1);
+        }
+      }
+      else if (count($left) > 0){
+        array_push($result, $left[0]);
+        $left = array_slice($left, 1);
+      }
+      else {
+        array_push($result, $right[0]);
+        $right = array_slice($right, 1);
+      }
+    }
+  return $result;
+}
+
+  /**
+   *  Merge Sort
+   *  http://en.wikipedia.org/wiki/Merge_sort
+   */
+  public static function mergeSort($collection){
+    if (count($collection) <= 1) return $collection;
+  
+    $left = $right = array();
+
+    $mid = (int)count($collection)/2;
+
+    foreach ($collection as $k => $v){
+      if ($k < $mid)
+        array_push($left, $v);
+      else
+        array_push($right, $v);
+      }
+    // Recursively sort the right and left sides
+    $left = Sort::mergeSort($left);
+    $right = Sort::mergeSort($right);
+    
+    return Sort::merge($left, $right);
+  }
+
 }
