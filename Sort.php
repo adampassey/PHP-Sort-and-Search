@@ -63,20 +63,20 @@ class Sort {
     while (count($left) > 0 || count($right) > 0){
       if (count($left) > 0 && count($right) > 0){
         if ($left[0] <= $right[0]){
-          array_push($result, $left[0]);
+          $result[] = $left[0];
           $left = array_slice($left, 1);
         }
         else{
-          array_push($result, $right[0]);
+          $result[] = $right[0];
           $right = array_slice($right, 1);
         }
       }
       else if (count($left) > 0){
-        array_push($result, $left[0]);
+        $result[] = $left[0];
         $left = array_slice($left, 1);
       }
       else {
-        array_push($result, $right[0]);
+        $result[] = $right[0];
         $right = array_slice($right, 1);
       }
     }
@@ -96,9 +96,9 @@ class Sort {
 
     foreach ($collection as $k => $v){
       if ($k < $mid)
-        array_push($left, $v);
+        $left[] = $v;
       else
-        array_push($right, $v);
+        $right[] = $v;
       }
     // Recursively sort the right and left sides
     $left = Sort::mergeSort($left);
