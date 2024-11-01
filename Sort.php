@@ -57,4 +57,72 @@ class Sort {
 
   }
 
+  // Used with Merge Sort
+  public static function merge($left, $right){
+    $result = array();
+    while (count($left) > 0 || count($right) > 0){
+      if (count($left) > 0 && count($right) > 0){
+        if ($left[0] <= $right[0]){
+          $result[] = $left[0];
+          $left = array_slice($left, 1);
+        }
+        else{
+          $result[] = $right[0];
+          $right = array_slice($right, 1);
+        }
+      }
+      else if (count($left) > 0){
+        $result[] = $left[0];
+        $left = array_slice($left, 1);
+      }
+      else {
+        $result[] = $right[0];
+        $right = array_slice($right, 1);
+      }
+    }
+  return $result;
+}
+
+  /**
+   *  Merge Sort
+   *  http://en.wikipedia.org/wiki/Merge_sort
+   */
+  public static function mergeSort($collection){
+    if (count($collection) <= 1) return $collection;
+  
+    $left = $right = array();
+
+    $mid = (int)count($collection)/2;
+
+    foreach ($collection as $k => $v){
+      if ($k < $mid)
+        $left[] = $v;
+      else
+        $right[] = $v;
+      }
+    // Recursively sort the right and left sides
+    $left = Sort::mergeSort($left);
+    $right = Sort::mergeSort($right);
+    
+    return Sort::merge($left, $right);
+  }
+
+  /**
+   *  Insertion Sort
+   *  http://en.wikipedia.org/wiki/Insertion_sort
+   *  http://www.youtube.com/watch?v=ROalU379l3U
+   */
+  public static function insertionSort($collection){
+    foreach ($collection as $k => $v){
+      $temp = ($k < count($collection) - 1 ? $collection[$k + 1] : $collection[$k]);
+      $j = ($k < count($collection) - 1 ? $k : $k - 1);
+      while(isset($collection[$j]) && $collection[$j] > $temp){
+        $collection[$j + 1] = $collection[$j];
+        $j--;
+      }
+      $collection[$j + 1] = $temp; 
+    }
+    return $collection;
+  }
+
 }
